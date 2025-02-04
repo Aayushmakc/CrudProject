@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+{% block title %}Form{% endblock title %}
+{% block content %}
+     <h1 class="text-center alert alert-info">Update Student Details</h1>
+    
+
+     <div class="container">
+        <div class="row">
+            <div class="col-10 alert alert-info mx-auto">
+
+                <form method="post" action="{% url 'edit' data.id %}">
+
+                    {% if messages %}
+                    {% for i in messages %}
+                        <div class="alert alert-{{i.tags}} alert-dismissible fade show" role="alert">
+                          <strong>MESSAGE!</strong> {{i}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                     {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Full Name</label>
+                      <input type="text" class="form-control" name="name" value="{{data.name}}" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Age</label>
+                        <input type="number" class="form-control" value="{{data.age}}" name="age" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <input type="email" class="form-control" value="{{data.email}}" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" name="message" id="floatingTextarea2" style="height: 100px">{{data.message}}</textarea>
+                        <label for="floatingTextarea2">Comments</label>
+                      </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                  </form>
+               
+            </div>
+        </div>
+     </div>
+    
+{% endblock content %}

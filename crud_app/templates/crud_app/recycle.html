@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+  {% block title %}
+  Home
+  {% endblock title %}
+{% block content %}
+   
+    <h3 class="text-center alert alert-danger">Delete Student Information</h3>
+
+    <div class="container">
+     <div class="row">
+         <div class="col-10 mx-auto">
+ 
+             <table class=" table table-success table-striped-columns">
+                 <thead>
+                   <tr>
+                     <th scope="col">ID</th>
+                     <th scope="col">Full Name</th>
+                     <th scope="col">Age</th>
+                     <th scope="col">Email</th>
+                     <th scope="col">Message</th>
+                     <th scope="col">Action</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  {% for i in data %}
+                    
+                   <tr>
+                     <th scope="row">{{forloop.counter}}</th>
+                     <td>{{i.name}}</td>
+                     <td>{{i.age}}</td>
+                     <td>{{i.email}}</td>
+                     <td>{{i.message}}</td>
+                     <td>
+                      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#{{i.id}}"><i class="fa-solid fa-trash-arrow-up"></i> Restore</button>
+                          <div class="modal fade" id="{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Save Change</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <p>Do you want to restore the data?</p>
+                                </div>
+                              <form action="{% url 'restore' i.id %}" >
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                  <button type="submit" class="btn btn-primary">Restore</button>
+                                </div>
+                              </form>
+                              </div>
+                            </div>
+                          </div>
+                     </td>
+                   </tr>
+                  {% endfor %}
+                 
+                  
+                 </tbody>
+               </table>
+         </div>
+     </div>
+    </div>
+    <script>
+      const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
+     </script> 
+ 
+{% endblock content %}
+
+
+
+   
+
